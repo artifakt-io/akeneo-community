@@ -1,0 +1,146 @@
+<?php
+
+namespace Pim\Bundle\InstallerBundle\FixtureLoader;
+
+use Doctrine\ORM\EntityManagerInterface;
+use Pim\Bundle\BaseConnectorBundle\Processor\TransformerProcessor;
+use Pim\Bundle\BaseConnectorBundle\Reader\File\YamlReader;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
+/**
+ * Load the jobs used to load fixtures
+ *
+ * @author    Julien Janvier <julien.janvier@akeneo.com>
+ * @copyright 2014 Akeneo SAS (http://www.akeneo.com)
+ * @license   http://opensource.org/licenses/MIT MIT
+ */
+class FixtureJobLoader
+{
+    /** @staticvar */
+    const JOB_TYPE = 'fixtures';
+
+    /** @var array */
+    protected $jobsFilePaths;
+
+    /** @var string */
+    protected $installerDataPath;
+
+    /** @var TransformerProcessor */
+    protected $processor;
+
+    /** @var YamlReader */
+    protected $reader;
+
+    /** @var EntityManagerInterface */
+    protected $em;
+
+    /** @var ContainerInterface */
+    protected $container;
+
+    /**
+     * @param ContainerInterface $container
+     * @param array              $jobsFilePaths
+     * @throws \Exception
+     */
+    public function __construct(ContainerInterface $container, array $jobsFilePaths)
+    {
+        $this->container = $container;
+        $this->reader = $container->get('pim_installer.reader.file.yaml');
+        $this->em = $container->get('doctrine.orm.entity_manager');
+        $this->processor = $container->get('pim_base_connector.processor.job_instance');
+        $this->jobsFilePaths = $jobsFilePaths;
+
+        $this->installerDataPath = $this->getInstallerDataPath();
+        if (!is_dir($this->installerDataPath)) {
+            throw new \Exception(sprintf('Path "%s" not found', $this->installerDataPath));
+        }
+    }
+
+    /**
+     * Load the fixture jobs in database
+     */
+    public function load()
+    {
+        $rawJobs = [];
+        $fileLocator = $this->container->get('file_locator');
+
+        foreach ($this->jobsFilePaths as $jobsFilePath) {
+            $realPath = $fileLocator->locate('@' . $jobsFilePath);
+            $this->reader->setFilePath($realPath);
+
+            // read the jobs list
+            while ($rawJob = $this->reader->read()) {
+                $rawJobs[] = $rawJob;
+            }
+
+            // sort the jobs by order
+            usort(
+                $rawJobs,
+                function ($item1, $item2) {
+                    if ($item1['order'] === $item2['order']) {
+                        return 0;
+                    }
+
+                    return ($item1['order'] < $item2['order']) ? -1 : 1;
+                }
+            );
+        }
+
+        // store the jobs
+        foreach ($rawJobs as $rawJob) {
+            unset($rawJob['order']);
+            $job = $this->processor->process($rawJob);
+            $config = $job->getRawConfiguration();
+            $config['filePath'] = sprintf('%s%s', $this->installerDataPath, $config['filePath']);
+            $job->setRawConfiguration($config);
+
+            $this->em->persist($job);
+        }
+
+        $this->em->flush();
+    }
+
+    /**
+     * Deletes all the fixtures job
+     */
+    public function deleteJobs()
+    {
+        $jobs = $this->em->getRepository($this->container->getParameter('akeneo_batch.entity.job_instance.class'))
+            ->findBy(['type' => static::JOB_TYPE]);
+
+        foreach ($jobs as $job) {
+            $this->em->remove($job);
+        }
+
+        $this->em->flush();
+    }
+
+    /**
+     * Get the path of the data used by the installer
+     *
+     * @return string
+     */
+    protected function getInstallerDataPath()
+    {
+        $installerDataDir = null;
+        $installerData = $this->container->getParameter('installer_data');
+
+        if (preg_match('/^(?P<bundle>\w+):(?P<directory>\w+)$/', $installerData, $matches)) {
+            $bundles = $this->container->getParameter('kernel.bundles');
+            $reflection = new \ReflectionClass($bundles[$matches['bundle']]);
+            $installerDataDir = dirname($reflection->getFilename()) . '/Resources/fixtures/' . $matches['directory'];
+        } else {
+            $installerDataDir = $this->container->getParameter('installer_data');
+        }
+
+        if (null === $installerDataDir || !is_dir($installerDataDir)) {
+            throw new \RuntimeException('Installer data directory cannot be found.');
+        }
+
+        if (DIRECTORY_SEPARATOR !== substr($installerDataDir, -1, 1)) {
+            $installerDataDir .= DIRECTORY_SEPARATOR;
+        }
+
+        return $installerDataDir;
+    }
+}

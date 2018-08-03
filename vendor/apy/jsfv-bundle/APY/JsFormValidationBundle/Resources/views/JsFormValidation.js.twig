@@ -1,0 +1,165 @@
+/**
+ * This file is part of the JsFormValidationBundle.
+ *
+ * (c) Abhoryo <abhoryo@free.fr>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+{% block before %}{% endblock %}
+
+if (jsfv == undefined) {
+    var jsfv = [];
+}
+
+jsfv['{{ formName }}'] = new function () {
+    var self = this;
+    function getComputeMessage(key, placeholders, number) {
+        Translator.placeHolderPrefix = '{{ '{{' }} ';
+        Translator.placeHolderSuffix = ' {{ '}}' }}';
+        // Default translations
+        if (!Translator.has('{{ translation_group }}:'+key)) {
+            Translator.add('{{ translation_group }}:'+key, key);
+        }
+
+        return Translator.get('{{ translation_group }}:'+key, placeholders, number) ||
+               Translator.get('{{ translation_group }}:'+key, placeholders);
+    }
+
+    function isNotDefined(value) {
+        return (typeof(value) == 'undefined' || null === value || '' === value);
+    }
+
+    function checkError(field, checkFunction, parameters, value) {
+        field = self.id(field);
+        // Remove old errors of the field
+        {% block removeErrors %}{% spaceless %}self.removeErrors(field);{% endspaceless %}{% endblock %}
+        // Check the value
+        errorMessage = checkFunction((value === undefined ? field : value), parameters);
+        {# Notice! Block getVal was refused since 2.1 version.
+           Use twig extention function getJsFormElementValue('field') instead. -#}
+        /*// {% block getVal %}{% endblock %} */
+
+        if (errorMessage != true) {
+{% block addError %}
+        {% spaceless %}self.addError(field, errorMessage);{% endspaceless %}
+{% endblock %}
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+{% for librairyCall in librairyCalls %}
+
+{% include librairyCall %}
+
+{% endfor %}
+
+{% for handler in getterHandlers %}
+
+{{ handler|raw }}
+
+{% endfor %}
+
+    this.id = function (id) {
+        return document.getElementById(id);
+    };
+{% block removeErrors_method %}
+    this.removeErrors = function (field) {
+        $(field).siblings('ul.error_list').remove();
+    };
+{% endblock %}
+{% block addError_method %}
+    this.addError = function (field, errorMessage) {
+        // Add errors block
+        field = $(field);
+        if (field.siblings('ul.error_list').length == 0)  {
+            field.before('<ul class="error_list"></ul>');
+        }
+
+        // Add error
+        field.prev().filter('ul').append('<li>'+errorMessage+'</li>');
+    };
+{% endblock %}
+    this.onEvent = function (field, eventType, handler) {
+        if (typeof(field) == 'string') {
+            field = self.id(field);
+        }
+{% block onEvent %}
+        $(field).bind(eventType, handler);
+{% endblock %}
+    };
+{% for fieldName, constraints in fieldConstraints %}
+    this.check_{{ fieldName }} = function() {
+        var gv;
+        result = true;
+{% for constraint in constraints %}
+        result = result && checkError('{{ fieldName }}', {{ constraint.name }}, {{ constraint.parameters|raw }} );
+{% endfor %}
+{% set resultvar = 'result' %}
+{% block getters_constraints_field %}
+{% if gettersConstraints[fieldName] is defined %}
+{% for getterHandler, getterConstraints  in gettersConstraints[fieldName] %}
+            if ({{ resultvar }}) {
+                gv = {{ getterHandler|raw }}();
+{% for constraint in getterConstraints %}
+                {{ resultvar }} = checkError({% if fieldName == '.' %}form.id{% else %}'{{ fieldName }}'{% endif %}, {{ constraint.name }}, {{ constraint.parameters|raw }}, gv);
+{% endfor %}
+            }
+{% endfor %}
+{% endif %}
+{% endblock %}
+        return result;
+    };
+{% endfor %}
+    this.submit = function() {
+        var gv, submitForm = true;
+{% for fieldName, constraints in fieldConstraints %}
+        submitForm = self.check_{{ fieldName }}() && submitForm;
+{% endfor %}
+        {% set resultvar = 'submitForm' %}{% set fieldName = '.' %}
+        {% block getters_constraints_submit %}{{ block('getters_constraints_field') }}{% endblock %}
+
+        return submitForm;
+    };
+    this.onReady = function() {
+{% if check_modes.submit %}
+        // On submit checks
+        var form = self.id('{{ formName }}');
+
+        // Form exists ?
+        if (form) {
+            // Get the form
+            if ( form.nodeName.toLowerCase() != 'form') {
+                form = self.id('{{ formName }}__token').form;
+            }
+
+            self.onEvent(form, 'submit', self.submit);
+        }
+{% endif %}
+
+{% if check_modes.blur %}
+        // On blur checks
+{% for fieldName, constraints in fieldConstraints %}
+        self.onEvent('{{ fieldName }}', 'blur', self.check_{{ fieldName }});
+{% endfor %}
+{% endif %}
+
+{% if check_modes.change %}
+        // On change checks
+{% for fieldName, constraints in fieldConstraints %}
+        self.onEvent('{{ fieldName }}', 'change', self.check_{{ fieldName }});
+{% endfor %}
+{% endif %}
+    };
+}
+
+{% block onReady %}
+$(jsfv['{{ formName }}'].onReady);
+{% endblock %}
+
+{% block after %}{% endblock %}
