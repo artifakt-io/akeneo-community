@@ -1,0 +1,177 @@
+jobs:
+    footwear_product_import:
+        connector: Akeneo CSV Connector
+        alias:     csv_product_import
+        label:     Footwear product import
+        type:      import
+        configuration:
+            uploadAllowed:      true
+            delimiter:          ;
+            enclosure:          '"'
+            escape:             '\'
+            enabled:            true
+            categoriesColumn:   categories
+            familyColumn:       family
+            groupsColumn:       groups
+            realTimeVersioning: true
+    footwear_product_export:
+        connector: Akeneo CSV Connector
+        alias:     csv_product_export
+        label:     Footwear product export
+        type:      export
+        configuration:
+            channel:    mobile
+            delimiter:  ;
+            enclosure:  '"'
+            withHeader: true
+    footwear_category_import:
+        connector: Akeneo CSV Connector
+        alias:     csv_category_import
+        label:     Footwear category import
+        type:      import
+        configuration:
+            uploadAllowed:       true
+            delimiter:           ;
+            enclosure:           '"'
+            escape:              '\'
+            circularRefsChecked: true
+    footwear_category_export:
+        connector: Akeneo CSV Connector
+        alias:     csv_category_export
+        label:     Footwear category export
+        type:      export
+        configuration:
+            delimiter:  ;
+            enclosure:  '"'
+            withHeader: true
+    footwear_association_type_import:
+        connector: Akeneo CSV Connector
+        alias:     csv_association_type_import
+        label:     Footwear association type import
+        type:      import
+        configuration:
+            uploadAllowed: true
+            delimiter:     ;
+            enclosure:     '"'
+            escape:        '\'
+    footwear_association_type_export:
+        connector: Akeneo CSV Connector
+        alias:     csv_association_type_export
+        label:     Footwear association type export
+        type:      export
+        configuration:
+            delimiter:  ;
+            enclosure:  '"'
+            withHeader: true
+    footwear_group_import:
+        connector: Akeneo CSV Connector
+        alias:     csv_group_import
+        label:     Footwear group import
+        type:      import
+        configuration:
+            uploadAllowed: true
+            delimiter:     ;
+            enclosure:     '"'
+            escape:        '\'
+    footwear_group_export:
+        connector: Akeneo CSV Connector
+        alias:     csv_group_export
+        label:     Footwear group export
+        type:      export
+        configuration:
+            delimiter:  ;
+            enclosure:  '"'
+            withHeader: true
+    footwear_variant_group_export:
+        connector: Akeneo CSV Connector
+        alias:     csv_variant_group_export
+        label:     Footwear variant group export
+        type:      export
+        configuration:
+            delimiter:  ;
+            enclosure:  '"'
+            withHeader: true
+    footwear_attribute_import:
+        connector: Akeneo CSV Connector
+        alias:     csv_attribute_import
+        label:     Footwear attribute import
+        type:      import
+        configuration:
+            uploadAllowed: true
+            delimiter:     ;
+            enclosure:     '"'
+            escape:        '\'
+    footwear_attribute_export:
+        connector: Akeneo CSV Connector
+        alias:     csv_attribute_export
+        label:     Footwear attribute export
+        type:      export
+        configuration:
+            delimiter:  ;
+            enclosure:  '"'
+            withHeader: true
+    footwear_option_import:
+        connector: Akeneo CSV Connector
+        alias:     csv_attribute_option_import
+        label:     Footwear option import
+        type:      import
+        configuration:
+            uploadAllowed: true
+            delimiter:     ;
+            enclosure:     '"'
+            escape:        '\'
+    footwear_option_export:
+        connector: Akeneo CSV Connector
+        alias:     csv_attribute_option_export
+        label:     Footwear option export
+        type:      export
+        configuration:
+            delimiter:  ;
+            enclosure:  '"'
+            withHeader: true
+    footwear_variant_group_import:
+        connector: Akeneo CSV Connector
+        alias:     csv_variant_group_import
+        label:     Footwear variant group import
+        type:      import
+        configuration:
+            uploadAllowed: true
+            delimiter:     ;
+            enclosure:     '"'
+            escape:        '\'
+            copyValues: true
+    update_product_value:
+        connector: Akeneo Mass Edit Connector
+        alias:     update_product_value
+        label:     Mass update products
+        type:      mass_edit
+    add_product_value:
+        connector: Akeneo Mass Edit Connector
+        alias:     add_product_value
+        label:     Mass add products values
+        type:      mass_edit
+    edit_common_attributes:
+        connector: Akeneo Mass Edit Connector
+        alias:     edit_common_attributes
+        label:     Mass edit common product attributes
+        type:      mass_edit
+    set_attribute_requirements:
+        connector: Akeneo Mass Edit Connector
+        alias:     set_attribute_requirements
+        label:     Set family attribute requirements
+        type:      mass_edit
+    add_to_variant_group:
+        connector: Akeneo Mass Edit Connector
+        alias:     add_to_variant_group
+        label:     Mass add products to variant group
+        type:      mass_edit
+    csv_product_quick_export:
+        connector: Akeneo Mass Edit Connector
+        alias: csv_product_quick_export
+        label: CSV product quick export
+        type: quick_export
+        configuration:
+            delimiter:  ;
+            enclosure:  '"'
+            withHeader: true
+            filePath:   /tmp/products_export_%locale%_%scope%.csv

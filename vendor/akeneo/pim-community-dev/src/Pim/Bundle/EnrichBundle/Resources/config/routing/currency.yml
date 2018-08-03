@@ -1,0 +1,16 @@
+pim_enrich_currency_index:
+    path: /.{_format}
+    defaults: { _controller: pim_enrich.controller.currency:indexAction, _format: html }
+    requirements:
+        _format: html|json
+
+pim_enrich_currency_toggle:
+    path: /{id}/toggle
+    defaults: { _controller: pim_enrich.controller.currency:toggleAction }
+    requirements:
+        id: \d+
+
+pim_enrich_currency_rest_index:
+    path: /rest
+    defaults: { _controller: pim_enrich.controller.rest.currency:indexAction, _format: json }
+    methods: [GET]

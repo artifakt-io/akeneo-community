@@ -1,0 +1,26 @@
+{% extends 'APYJsFormValidationBundle::JsFormValidation.js.twig' %}
+
+{% block removeErrors %}
+//u.error_list doesn't work
+$(field).getSiblings('.error_list').each(function(el) { el.destroy(); });
+{% endblock %}
+
+{% block addError %}
+// Add errors block
+field = $(field);
+if (field.getSiblings('.error_list').length == 0)  {
+        var ulErrors  = new Element('ul', { class : 'error_list' });
+        ulErrors.inject(field, 'before');
+}
+
+// Add error
+field.getPrevious('ul').adopt(new Element('li', { html : errorMessage }));
+{% endblock %}
+
+{% block onEvent %}
+$(field).addEvent(eventType, handler);
+{% endblock %}
+
+{% block onReady %}
+window.addEvent('domready', jsfv['{{ formName }}'].onReady);
+{% endblock %}

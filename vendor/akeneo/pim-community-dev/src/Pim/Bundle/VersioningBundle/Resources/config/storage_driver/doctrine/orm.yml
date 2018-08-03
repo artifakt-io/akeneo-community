@@ -1,0 +1,34 @@
+parameters:
+    pim_versioning.repository.version.class:                  Pim\Bundle\VersioningBundle\Doctrine\ORM\VersionRepository
+    pim_versioning.doctrine.orm.pending_mass_persister.class: Pim\Bundle\VersioningBundle\Doctrine\ORM\PendingMassPersister
+
+services:
+    pim_versioning.repository.version:
+        class: %pim_versioning.repository.version.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [%pim_versioning.entity.version.class%]
+        tags:
+            - { name: 'pim_repository' }
+
+    # deprecated: will be removed in 1.6
+    pim_versioning.doctrine.orm.pending_mass_persister:
+        class: %pim_versioning.doctrine.orm.pending_mass_persister.class%
+        arguments:
+            - '@pim_versioning.builder.version'
+            - '@pim_versioning.manager.version'
+            - '@pim_serializer'
+            - %pim_versioning.entity.version.class%
+            - '@database_connection'
+            - '@doctrine.orm.default_entity_manager'
+            - '@pim_catalog.doctrine.table_name_builder'
+
+    pim_versioning.object_manager.version:
+        alias: doctrine.orm.entity_manager
+
+    pim_versioning.event_subscriber.timestampable:
+        class: %pim_versioning.event_subscriber.timestampable.class%
+        arguments:
+            - @akeneo_storage_utils.doctrine.smart_manager_registry
+        tags:
+            - { name: doctrine.event_subscriber }

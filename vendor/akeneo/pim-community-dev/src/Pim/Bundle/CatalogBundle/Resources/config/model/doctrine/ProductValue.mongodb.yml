@@ -1,0 +1,52 @@
+Pim\Bundle\CatalogBundle\Model\ProductValue:
+    type: embeddedDocument
+    fields:
+        id:
+            id: true
+        varchar:
+            type: string
+        integer:
+            type: int
+        decimal:
+            type: float
+        boolean:
+            type: boolean
+        text:
+            type: string
+        date:
+            type: date
+        datetime:
+            type: date
+        locale:
+            type: string
+        scope:
+            type: string
+        attribute:
+            type: entity
+            targetEntity: Pim\Bundle\CatalogBundle\Entity\Attribute
+        entity:
+            reference: true
+            type: one
+            targetDocument: Pim\Bundle\CatalogBundle\Model\ProductInterface
+            inversedBy: values
+        option:
+            type: entity
+            targetEntity: Pim\Bundle\CatalogBundle\Entity\AttributeOption
+        options:
+            notSaved: true
+            type: entities
+            targetEntity: Pim\Bundle\CatalogBundle\Entity\AttributeOption
+            idsField: optionIds
+        optionIds:
+            type: collection
+        metric:
+            embedded: true
+            type: one
+            targetDocument: Pim\Bundle\CatalogBundle\Model\MetricInterface
+        prices:
+            embedded: true
+            type: many
+            targetDocument: Pim\Bundle\CatalogBundle\Model\ProductPriceInterface
+        media:
+            type: entity
+            targetEntity: Akeneo\Component\FileStorage\Model\FileInfo

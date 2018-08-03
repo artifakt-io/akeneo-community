@@ -1,0 +1,73 @@
+{% spaceless %}
+{% if elements is not defined %}
+    {% import 'PimUIBundle:Default:page_elements.html.twig' as elements %}
+{% endif %}
+
+{% set parentId = form.vars.value.parent ? form.vars.value.parent.id : null %}
+
+{% set entityName = parentId ? 'category' : 'tree' %}
+
+{% if form.vars.value.id %}
+    {% set title = (entityName ~ '.edit')|trans ~ ' - ' ~ form.vars.value.label %}
+{% else %}
+    {% set title = (entityName ~ '.create')|trans %}
+{% endif %}
+{% endspaceless %}
+
+{{ JSFV(form) }}
+{{ form_start(form, {
+    'action': form.vars.value.id ?
+        path(route ~ '_categorytree_edit', { id: form.vars.value.id }) :
+        path(route ~ '_categorytree_create', { parent: parentId }),
+    'attr': {
+        'data-updated-title': 'confirmation.leave'|trans,
+        'data-updated-message': 'confirmation.discard changes'|trans({ '%entity%': (entityName ~ '.title')|trans })
+    }
+}) }}
+
+    {% set buttons %}
+        {% if form.vars.value.id %}
+            {% if exceeds_products_limit_for_removal(form.vars.value, true, related_entity) %}
+                {{ elements.link(
+                    'btn.delete',
+                    null,
+                    {
+                        'icon':  'trash',
+                        'title': 'btn.delete',
+                        'attr': {
+                            'data-title':   'confirmation.delete'|trans,
+                            'data-dialog':  'alert',
+                            'data-message': 'info.category.products limit exceeded'|trans({ '%limit%': get_products_limit_for_removal()|default('0') })
+                        }
+                    }
+                ) }}
+            {% else %}
+                {{ elements.deleteLink(
+                    path(route ~ '_categorytree_remove', { id: form.vars.value.id }),
+                    'pim_enrich_product_category_remove',
+                    form.vars.value.parent ? path(route ~ '_categorytree_edit', { id: form.vars.value.parent.id }) : path(route ~ '_categorytree_create'),
+                    'confirmation.remove.category'|trans({ '%name%': form.vars.value.label }) ~ '<br />'
+                    ~ 'info.category.remove children'|trans ~ '<br />'
+                    ~ 'info.category.keep products'|trans,
+                    (form.vars.value.parent ? 'flash.category.removed' : 'flash.tree.removed')|trans
+                ) }}
+            {% endif %}
+        {% elseif parentId %}
+            {{ elements.backLink(path(route ~ '_categorytree_edit', { id: parentId }), 'btn.to parent') }}
+        {% endif %}
+        {{ elements.submitBtn('', 'ok') }}
+    {% endset %}
+
+    {{ elements.page_header(title, buttons, null, null, elements.updated(form.vars.id)) }}
+
+    {{ elements.form_navbar(view_element_aliases(form.vars.id ~ '.form_tab')) }}
+
+    <div class="row-fluid tab-content">
+        {{ elements.form_errors(form) }}
+
+        {{ view_elements(form.vars.id ~ '.form_tab') }}
+    </div>
+{{ form_end(form) }}
+<script type="text/javascript">
+    document.title = '{{ "pim_title.category.edit"|trans({ "%category.label%": form.vars.value.label }) }}';
+</script>

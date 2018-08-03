@@ -1,0 +1,40 @@
+Pim\Bundle\CatalogBundle\Entity\AttributeOption:
+    type: entity
+    table: pim_catalog_attribute_option
+    changeTrackingPolicy: DEFERRED_EXPLICIT
+    repositoryClass: Pim\Bundle\CatalogBundle\Doctrine\ORM\Repository\AttributeOptionRepository
+    uniqueConstraints:
+        searchunique_idx:
+            columns:
+                - code
+                - attribute_id
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        code:
+            type: string
+            length: 100
+        sortOrder:
+            type: integer
+            column: sort_order
+    manyToOne:
+        attribute:
+            targetEntity: Pim\Bundle\CatalogBundle\Model\AttributeInterface
+            inversedBy: options
+            joinColumns:
+                attribute_id:
+                    nullable: false
+                    referencedColumnName: id
+                    onDelete: CASCADE
+    oneToMany:
+        optionValues:
+            targetEntity: Pim\Bundle\CatalogBundle\Entity\AttributeOptionValue
+            indexBy: locale
+            cascade:
+                - persist
+                - remove
+                - detach
+            mappedBy: option

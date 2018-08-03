@@ -1,0 +1,34 @@
+{% extends 'PimUserBundle::layout.html.twig' %}
+
+{% block bodyClass %}login-page{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form action="{{ path('oro_user_reset_send_email') }}" method="post" class="form-signin form-reset">
+        <div class="title-box">
+            <h1>
+                <img src="{{ asset('/bundles/pimui/images/logo.png') }}" alt="Akeneo">
+            </h1>
+            <h2 class="title">{{ 'Forgot Password'|trans }}</h2>
+        </div>
+
+        {% if invalid_username is defined %}
+        <div>
+            <div class="alert alert-error">
+                {{ 'The username or email address "%username%" does not exist.'|trans({ '%username%': invalid_username }) }}
+            </div>
+        </div>
+        {% endif %}
+
+        <fieldset>
+            <div class="form-row">
+                <input type="text" name="username" required="required" placeholder="{{ 'Username or Email'|trans }}" autofocus="autofocus"/>
+            </div>
+            <div class="form-row">
+                <a href="{{ path('oro_user_security_login') }}" class="btn extra-btn-large btn-large">{{ 'Cancel'|trans }}</a>
+                <button type="submit" class="btn pull-right btn-large btn-primary">{{ 'Request'|trans }}</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+{% endblock %}
