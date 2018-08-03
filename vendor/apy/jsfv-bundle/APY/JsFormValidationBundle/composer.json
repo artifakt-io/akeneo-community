@@ -1,0 +1,45 @@
+{
+    "name": "apy/jsfv-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony2 Javascript Form Validation Bundle with localisation support",
+    "keywords": ["Symfony", "javascript", "form", "validation", "i18n", "L10n", "g11n"],
+    "homepage": "https://github.com/Abhoryo/APYJsFormValidationBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yoann Petit",
+            "email": "abhoryo@free.fr"
+        },
+        {
+            "name": "Community contributions",
+            "homepage": "https://github.com/Abhoryo/APYJsFormValidationBundle/graphs/contributors"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/framework-bundle": "~2.1",
+        "symfony/form": "~2.1",
+        "willdurand/js-translation-bundle": "1.2.*"
+    },
+    "require-dev": {
+        "symfony/symfony": "~2.1",
+        "symfony/assetic-bundle": "~2.1",
+        "doctrine/orm": "*",
+        "doctrine/doctrine-bundle": "*",
+        "doctrine/doctrine-fixtures-bundle": "*",
+        "sensio/framework-extra-bundle": "*",
+        "jms/di-extra-bundle": "*",
+        "jms/aop-bundle": "*",
+        "liip/functional-test-bundle": "*"
+    },
+    "autoload": {
+        "psr-0": { "APY\\JsFormValidationBundle": "" }
+    },
+    "target-dir": "APY/JsFormValidationBundle",
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.1-dev"
+        }
+    }
+}

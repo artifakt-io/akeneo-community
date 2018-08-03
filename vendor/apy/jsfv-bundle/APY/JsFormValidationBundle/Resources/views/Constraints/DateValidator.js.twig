@@ -1,0 +1,18 @@
+function Date(field, params)
+{
+    var value = field && field.nodeName ? {{ getJsFormElementValue('field') }} : field;
+
+    if (isNotDefined(value)) {
+        return true;
+    }
+
+    value = String(value);
+
+    var pattern = /^(\d{4})-(\d{2})-(\d{2})$/;
+
+    if ( pattern.test(value) ) {
+        return true;
+    }
+
+    return getComputeMessage(params.message);
+}

@@ -1,0 +1,24 @@
+{% extends 'APYJsFormValidationBundle::JsFormValidation.js.twig' %}
+
+{% block removeErrors %}
+$(field).adjacent('.error_list').each(function(el) { el.remove(); });
+{% endblock %}
+
+{% block addError %}
+// Add errors block
+field = $(field);
+if (field.adjacent('ul.error_list').length == 0) {
+    field.insert({ before: '<ul class="error_list"></ul>' });
+}
+
+// Add error
+field.previous('ul').insert('<li>'+errorMessage+'</li>');
+{% endblock %}
+
+{% block onEvent %}
+$(field).observe(eventType, handler);
+{% endblock %}
+
+{% block onReady %}
+document.observe("dom:loaded", jsfv['{{ formName }}'].onReady);
+{% endblock %}

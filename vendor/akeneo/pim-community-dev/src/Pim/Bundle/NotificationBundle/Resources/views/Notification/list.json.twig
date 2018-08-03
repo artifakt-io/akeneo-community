@@ -1,0 +1,15 @@
+{% set notifications = [] %}
+{% for item in userNotifications %}
+    {% set notifications = notifications|merge([{
+        id: item.id,
+        type: item.notification.type,
+        message: item.notification.message|trans(item.notification.messageParams),
+        viewed: item.viewed,
+        url: item.notification.route ? path(item.notification.route, item.notification.routeParams) : null,
+        createdAt: item.notification.created|date("Y-m-d H:i:s"),
+        actionType: item.notification.context.actionType ? item.notification.context.actionType : null,
+        actionTypeMessage: item.notification.context.actionType ? item.notification.context.actionType|trans : null,
+    }]) %}
+{% endfor %}
+{% set data = { notifications: notifications, unreadCount: notification_count() } %}
+{{ data|json_encode|raw }}

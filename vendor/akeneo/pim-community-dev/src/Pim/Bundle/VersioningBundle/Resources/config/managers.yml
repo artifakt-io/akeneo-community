@@ -1,0 +1,15 @@
+parameters:
+    pim_versioning.manager.version.class: Pim\Bundle\VersioningBundle\Manager\VersionManager
+    pim_versioning.context.version.class: Pim\Bundle\VersioningBundle\Manager\VersionContext
+
+services:
+    pim_versioning.manager.version:
+        class: %pim_versioning.manager.version.class%
+        arguments:
+            - '@pim_catalog.doctrine.smart_manager_registry'
+            - '@pim_versioning.builder.version'
+            - '@pim_versioning.context.version'
+            - '@event_dispatcher'
+
+    pim_versioning.context.version:
+        class: %pim_versioning.context.version.class%

@@ -1,0 +1,40 @@
+Pim\Bundle\CatalogBundle\Entity\AttributeGroup:
+    type: entity
+    table: pim_catalog_attribute_group
+    changeTrackingPolicy: DEFERRED_EXPLICIT
+    repositoryClass: Pim\Bundle\CatalogBundle\Doctrine\ORM\Repository\AttributeGroupRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        code:
+            type: string
+            length: 100
+            unique: true
+        sortOrder:
+            type: integer
+            column: sort_order
+        created:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+        updated:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+    oneToMany:
+        attributes:
+            targetEntity: Pim\Bundle\CatalogBundle\Model\AttributeInterface
+            mappedBy: group
+            orderBy:
+                sortOrder: ASC
+        translations:
+            targetEntity: Pim\Bundle\CatalogBundle\Entity\AttributeGroupTranslation
+            mappedBy: foreignKey
+            cascade:
+                - persist
+                - detach

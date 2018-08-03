@@ -1,0 +1,17 @@
+function Regex(field, params)
+{
+    var value = field && field.nodeName ? {{ getJsFormElementValue('field') }} : field;
+
+    if (isNotDefined(value)) {
+        return true;
+    }
+
+    value = String(value);
+
+    // xor with converted boolean values
+    if ( !params.match != !params.pattern.test(value) ) {
+        return getComputeMessage(params.message);
+    }
+
+    return true;
+}

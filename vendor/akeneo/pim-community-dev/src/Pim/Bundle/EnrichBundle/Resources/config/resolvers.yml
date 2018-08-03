@@ -1,0 +1,11 @@
+parameters:
+    pim_enrich.imagine.loader.flysystem.class: Pim\Bundle\EnrichBundle\Imagine\Loader\FlysystemLoader
+
+services:
+    pim_enrich.imagine.loader.flysystem:
+        class: %pim_enrich.imagine.loader.flysystem.class%
+        arguments:
+            - '@oneup_flysystem.mount_manager'
+            - ['catalogStorage']
+        tags:
+            - { name: liip_imagine.binary.loader, loader: flysystem_data_loader }
