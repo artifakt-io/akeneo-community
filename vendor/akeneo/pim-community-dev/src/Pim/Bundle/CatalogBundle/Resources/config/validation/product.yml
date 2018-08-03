@@ -1,0 +1,18 @@
+Pim\Component\Catalog\Model\Product:
+    constraints:
+        - Pim\Component\Catalog\Validator\Constraints\HasVariantAxes:
+            groups:
+                - Default
+                - pim_catalog_variant_group
+        - Pim\Component\Catalog\Validator\Constraints\UniqueVariantAxis:
+            groups:
+                - Default
+                - pim_catalog_variant_group
+        - Pim\Component\Catalog\Validator\Constraints\UniqueVariantGroup:
+            groups:
+                - Default
+                - pim_catalog_variant_group
+    getters:
+        values:
+            - Symfony\Component\Validator\Constraints\Valid:
+                traverse: true

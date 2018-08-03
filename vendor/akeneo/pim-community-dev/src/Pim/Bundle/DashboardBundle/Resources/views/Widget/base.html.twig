@@ -1,0 +1,18 @@
+{% block widget_outer %}
+    <div class="row unspaced buffer-bottom">
+         <div class="span12 quick-launchpad-widget">
+            {% block widget_inner %}
+                {% if widgetTitle is defined %}
+                    <div class="widget-header">
+                        {{ widgetTitle }}
+                    </div>
+                {% endif %}
+                {% if widgetContent is defined %}
+                    <div class="widget-content">
+                        {{ widgetContent }}
+                    </div>
+                {% endif %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

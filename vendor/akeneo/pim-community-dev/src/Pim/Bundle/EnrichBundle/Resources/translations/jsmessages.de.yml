@@ -1,0 +1,468 @@
+confirmation:
+  remove:
+    item: Möchten Sie dieses Element wirklich löschen?
+    association type: Möchten Sie diesen Verbindungstyp wirklich löschen?
+    attribute: Möchten Sie dieses Attribut wirklich löschen?
+    family: Möchten Sie diese Produktfamilie wirklich löschen?
+    product: Möchten Sie dieses Produkt wirklich löschen?
+    channel: Möchten Sie diesen Ausgabekanal wirklich löschen?
+    group: Möchten Sie diese Gruppe wirklich löschen?
+    variant group: Möchten Sie diese Variantengruppe wirklich löschen?
+    group type: Möchten Sie diesen Gruppentyp wirklich löschen?
+    import profile: Möchten Sie dieses Importprofil wirklich löschen?
+    export profile: Möchten Sie dieses Exportprofil wirklich löschen?
+    user: Möchten Sie diesen Benutzer wirklich löschen?
+    role: Möchten Sie diese Rolle wirklich löschen?
+pim_datagrid:
+  mass_action_group:
+    bulk_actions:
+      label: Stapelverarbeitung
+    quick_export:
+      label: Schnellexport
+  mass_action:
+    delete:
+      confirm_content: Sind Sie sicher, dass Sie die ausgewählten Produkte löschen möchten?
+      success: Ausgewählte Produkte erfolgreich gelöscht.
+      error: Es ist ein Fehler beim Löschen der ausgewählten Produkte aufgetreten, bitte versuchen Sie es erneut.
+flash:
+  item:
+    removed: Element erfolgreich entfernt
+  association type:
+    removed: Verbindungstyp erfolgreich entfernt
+  attribute:
+    removed: Attribut erfolgreich entfernt
+  family:
+    removed: Produktfamilie erfolgreich entfernt
+  product:
+    removed: Produkt erfolgreich entfernt
+  channel:
+    removed: Ausgabekanal erfolgreich entfernt
+  group:
+    removed: Gruppe erfolgreich entfernt
+  variant group:
+    removed: Variantengruppe erfolgreich entfernt
+  group type:
+    removed: Gruppentyp erfolgreich entfernt
+  import profile:
+    removed: Importprofil erfolgreich entfernt
+  export profile:
+    removed: Exportprofil erfolgreich entfernt
+  user:
+    removed: Benutzer erfolgreich entfernt
+  role:
+    removed: Rolle erfolgreich entfernt
+error:
+  removing:
+    item: Dieses Element kann nicht gelöscht werden
+    association type: Dieser Verbindungstyp kann nicht gelöscht werden
+    attribute: Dieses Attribut kann nicht gelöscht werden
+    family: Diese Produktfamilie kann nicht gelöscht werden
+    product: Dieses Produkt kann nicht gelöscht werden
+    channel: Dieser Ausgabekanal kann nicht gelöscht werden
+    group: Diese Gruppe kann nicht gelöscht werden
+    variant group: Diese Variantengruppe kann nicht gelöscht werden
+    group type: Dieser Gruppentyp kann nicht gelöscht werden
+    import profile: Dieses Importprofil kann nicht gelöscht werden
+    export profile: Dieses Exportprofil kann nicht gelöscht werden
+    user: Dieser Benutzer kann nicht gelöscht werden
+    role: Diese Rolle kann nicht gelöscht werden
+    attribute_option: Fehler beim Löschen der Attributoption
+  saving:
+    attribute_option: Attributoption kann nicht gespeichert werden
+    export_profile: Export-Profil kann nicht gespeichert werden. Bitte überprüfen Sie die Wert aller Filter
+alert:
+  attribute_option:
+    error_occured_during_submission: Während der Formularübertragung auf dem Server ist ein Fehler aufgetreten
+    save_before_edit_other: Bitte speichern Sie die Änderungen in den anderen Zeilen bevor Sie diese bearbeiten
+  session_storage:
+    not_available: Ihr Webbrowser scheint nicht kompatibel mit sessionStorage zu sein. Bitte kontaktieren Sie Ihren Administrator
+confirm:
+  attribute_option:
+    cancel_edition_on_new_option_text: Achtung, ungespeicherte Daten werden verloren gehen! Sind Sie sicher, dass Sie die Bearbeitung an der neuen Auswahlmöglichkeit abbrechen möchten ?
+    cancel_edition_on_new_option_title: Änderung abbrechen
+label:
+  attribute_option:
+    add_option: Auswahlmöglichkeit hinzufügen
+Code: Code
+Edit: Bearbeiten
+Delete: Löschen
+Edit attributes of the product: Bearbeite die Attribute des Produkts
+Classify the product: Produkt klassifizieren
+Delete the product: Produkt löschen
+Change status: Status ändern
+Toggle status: Status umschalten
+pim:
+  grid:
+    mass_action:
+      quick_export:
+        csv_all: CSV (alle Attribute)
+        csv_grid_context: CSV (Kontextabhängig)
+        xlsx_all: Excel (alle Attribute)
+        xlsx_grid_context: Excel (Kontextabhängig)
+      delete: Produkte löschen
+      mass_edit: Produktinformationen ändern
+      category_edit: Produkte in Kategorien verschieben
+      sequential_edit: Produkte se­quen­zi­ell bearbeiten
+jstree.create: Anlegen
+switch_on: "Ja"
+switch_off: "Nein"
+pim_enrich:
+  item:
+    list:
+      delete.label: Löschen
+      delete.error: Fehler beim Löschen des Elementes
+    delete:
+      confirm.content: Sind Sie sicher, dass Sie {{ itemName }} löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden
+      confirm.title: '{{ itemName }} löschen'
+  navigation:
+    link:
+      back_to_grid: Zurück zur Übersicht
+  entity:
+    save:
+      label: Speichern
+    info:
+      update_failed: Update fehlgeschlagen
+      update_successful: Update erfolgreich
+    product:
+      title: Produkt
+      btn:
+        enable: Aktivieren
+        enabled: Aktiviert
+        disable: Deaktivieren
+        disabled: Deaktiviert
+        download_pdf: PDF
+        compare_translate: Vergleichen / Übersetzen
+        delete: Löschen
+        save: Speichern
+        save_and_back: Speichern und zurück zur Übersicht
+      history:
+        version: Version
+        author: Autor
+        logged_at: Aufgezeichnet am
+        more: Mehr
+        less: Weniger
+        from: Von
+        modified: Bearbeitet
+        property: Eigenschaft
+        old_values: Alte Werte
+        new_values: Neue Werte
+        actions: Aktionen
+      info:
+        deletion_successful: Produkt erfolgreich gelöscht.
+        deletion_failed: Das Produkt konnte nicht gelöscht werden.
+        update_successful: Produkt erfolgreich aktualisiert.
+        update_failed: Das Produkt konnte nicht aktualisiert werden.
+        field_not_ready: "Das Produkt kann gerade nicht gespeichert. Folgende Felder sind nicht bereit: {{ fields }}"
+        already_in_upload: Es wird bereits eine Datei für dieses Attribut im Gebietsschema "{{ locale }}" und Gültigkeitsbereich "{{ scope }}" hochgeladen
+      error:
+        upload: Während des Hochladens der Datei ist ein Fehler aufgetreten
+      meta:
+        created: Erstellt
+        created_by: Von
+        updated_by: Von
+        updated: Letzte Aktualisierung
+        family:
+          title: Produktfamilie
+          none: Keine
+        groups:
+          title: Gruppen
+          modal:
+            title: Gruppe {{ group }}
+            view_group: Gruppe ansehen
+            group_label: Bezeichnung
+            more_products: '{{ count }} weitere Produkte...'
+            close: Schließen
+      copy:
+        select: Auswählen
+        all: Alle
+        all_visible: Alle sichtbaren
+        none: Keine
+        copy: Kopie
+      variant_group:
+        updated_by: Aktualisiert durch eine Variantengruppe
+        switch:
+          "yes": "Ja"
+          "no": "Nein"
+      optional_attribute:
+        remove: Dieses Attribut entfernen
+      locale_specific_attribute:
+        unavailable: Dieses vom Gebietsschema abhängige Feld ist in diesem Gebietsschema nicht verfügbar
+      localizable:
+        channel_locale_unavailable: Dieses lokalisierbare Feld ist für das Gebietsschema '{{ locale }}' und den Ausgabekanal '{{ channel }}' nicht verfügbar
+      media:
+        upload: Upload per Drag & Drop oder hier klicken
+      create_popin:
+        title: Neues Produkt anlegen
+        labels:
+          family: Wählen Sie eine Produktfamilie
+          save: Speichern
+          cancel: Abbrechen
+    attribute_option:
+      code: Code
+      label: Bezeichnung
+    variant_group:
+      title: Variantengruppe
+      info:
+        deletion_successful: Variantengruppe erfolgreich gelöscht.
+        deletion_failed: Die Variantengruppe konnte nicht gelöscht werden.
+        update_successful: Variantengruppe erfolgreich aktualisiert.
+        update_failed: Die Variantengruppe konnte nicht aktualisiert werden.
+        field_not_ready:
+          The variant group cannot be saved right now. The following fields are not ready:
+            - Felder
+        already_in_upload: Es wird bereits eine Datei für dieses Attribut im Gebietsschema "{{ locale }}" und Gültigkeitsbereich "{{ scope }}" hochgeladen
+        no_attributes: Diese Variantengruppe hat noch keine Attribute
+      btn:
+        save: Speichern
+      meta:
+        product_count: Produkte
+        created: Erstellt
+        created_by: Erstellt von
+        updated: Aktualisiert
+        updated_by: Aktualisiert von
+  confirmation:
+    leave: Möchten Sie diese Seite wirklich verlassen?
+    discard_changes: Änderungen an {{ entity }} gehen verloren, wenn Sie die Seite verlassen.
+    delete_item: Löschen bestätigen
+    delete:
+      attribute: Sind Sie sicher, dass Sie dieses Attribut vom Produkt löschen möchten?
+  info:
+    not_applicable: N/A
+    entity:
+      updated: Es gibt ungespeicherte Änderungen.
+  error:
+    upload: Während des Hochladens der Datei ist ein Fehler aufgetreten
+  alert:
+    not_allowed: Sie haben keine Berechtigung für diese Seite
+    error_occured: Während des Ladens der Seite ist ein Fehler aufgetreten
+  form:
+    required: (erforderlich)
+    product:
+      tab:
+        associations:
+          title: Verbindungen
+          info:
+            none_exist: Es gibt keine Verbindungstypen.
+            show_products: Produkte anzeigen
+            show_groups: Gruppen anzeigen
+            number_of_associations: "{{ productCount }} Produkte und {{ groupCount }} Gruppen"
+        attributes:
+          title: Attribute
+          btn:
+            add: Hinzufügen
+            add_attributes: Attribute hinzufügen
+          info:
+            search_attributes: Suche...
+            no_available_attributes: Es gibt keine weiteren Attribute zum Hinzufügen
+            attributes_selected: "{{ attributeCount }} Attribute ausgewählt"
+            no_match: Keine Treffer gefunden
+            load_more: Weitere Ergebnisse werden geladen...
+        categories:
+          title: Kategorien
+      panel:
+        completeness:
+          title: Vollständigkeit
+          info:
+            no_family: Keine Produktfamilie zugewiesen. Bitte wählen Sie eine Produktfamilie, um die Vollständigkeit dieses Produkts zu berechnen.
+            no_completeness: Sie haben gerade die Produktfamilie geändert. Bitte speichern Sie zuerst, um die Vollständigkeit für die neue Produktfamilie zu berechnen.
+          missing_values: Fehlende Werte
+        history:
+          title: Historie
+      switch:
+        "no": "Nein"
+        "yes": "Ja"
+      sequential_edit:
+        info:
+          products: Produkte
+          previous: Zurück zu {{ product }} ohne Speichern.
+          next: Weiter zu {{ product }} ohne Speichern.
+        btn:
+          save_and_next: Speichern und weiter
+          save_and_finish: Speichern und fertigstellen
+      change_family:
+        modal:
+          title: Produktfamilie ändern
+          merge_attributes: Die aktuellen Attribute werden mit denen der neuen Produktfamilie zusammengeführt.
+          keep_attributes: Es werden keine Attribute entfernt.
+          change_family_to: Produktfamilie ändern zu
+          empty_selection: Wählen Sie eine Produktfamilie
+      flash:
+        attribute_deletion_error: Während des Löschens des Attributs ist ein Fehler aufgetreten
+      mass_edit:
+        select_attributes: Attribute auswählen
+        select: Auswählen
+    attribute_option:
+      flash:
+        option_created: Attributoption erfolgreich erstellt
+        error_creating_option: Während des Erstellens der Attributoption ist ein Fehler aufgetreten
+      add_option_modal:
+        title: Attributoption hinzufügen
+        confirm: Hinzufügen
+        cancel: Abbrechen
+    entity:
+      switch:
+        "no": "Nein"
+        "yes": "Ja"
+    variant_group:
+      tab:
+        properties:
+          title: Eigenschaften
+          general: Allgemeine Eigenschaften
+          code: Code
+          type: Typ
+          axis: Achse
+          label_translations: Feldbezeichner-Übersetzungen
+        history:
+          title: Historie
+        products:
+          title: Produkte
+        attributes:
+          title: Attribute
+    common:
+      tab:
+        attributes:
+          btn:
+            add: Hinzufügen
+            add_attributes: Attribute hinzufügen
+          info:
+            search_attributes: Suche...
+            no_available_attributes: Es können keine weiteren Attribute hinzugefügt werden
+  export:
+    product:
+      data:
+        title: Produkte filtern
+      structure:
+        title: Daten filtern
+        attributes:
+          title: Attribute
+      filter:
+        channel:
+          title: Ausgabekanal
+          help: Ein Ausgabekanal definiert den Umfang für Produktwerte, sowie die Gebietsschemas und den Strukturbaum um die Daten und Produkte zu selektieren.
+        locales:
+          title: Gebietsschemata
+          help: "Das Gebietsschema definiert die lokalisierten Produktwerte für den Export. Beispiel: Nur Produktinformationen in französischer Sprache."
+        attributes:
+          title: Attribute
+          edit: Bearbeiten
+          label: "{0} alle Attribute |{1} ein Attribut ausgewählt |] 1, Inf [{{ count }} Attribute ausgewählt"
+          help: "Wählen Sie die Produktinformationen die exportiert werden sollen. (z.B. alle technischen Attribute)"
+          empty: Alle Attribute werden exportiert
+          modal:
+            apply: Anwenden
+            cancel: Abbrechen
+            title: Attribut wählen
+        attributes_selector:
+          attribute_group: Attributgruppen
+          attributes: "Suche in {{ attributeCount }} Attributen"
+          selected: "Ausgewählte Attribute"
+          clear: Zurücksetzen
+          all_group: Alle Gruppen
+          empty_selection: Alle Attribute werden exportiert
+        family:
+          title: Produktfamilie
+          help: "Wählen Sie die Produkte, die entsprechend Ihrer Produktfamilie exportiert werden sollen. (z.B. nur Schuhe und Anzüge)."
+          operators:
+            IN: In Liste
+            "NOT IN": Nicht in der Liste
+            EMPTY: Produkte die keine Produktfamilie haben
+            "NOT EMPTY": Produkte die eine Produktfamilie haben
+          empty_selection: Keine Bedingung für Produktfamilien
+        updated:
+          title: Zeitbedingung
+          operators:
+            ALL: Keine Datumsbedingung
+            "SINCE LAST N DAYS": Aktualisierte Produkte der letzten n Tage (z.B. 6)
+            ">": Aktualisierte Produkte seit diesem Datum
+            "SINCE LAST JOB": Aktualisierte Produkte seit letztem Export
+        enabled:
+          title: Status
+          help: "Wählen Sie die Produkte, die entsprechend Ihres Status exportiert werden sollen."
+          value:
+            all: Alle
+            enabled: Aktiviert
+            disabled: Deaktiviert
+        completeness:
+          title: Vollständigkeit
+          help: Wählen Sie die Produkte, die entsprechend Ihrer Vollständigkeit exportiert werden sollen.
+          operators:
+            ALL: Keine Bedingung für Vollständigkeit
+            ">=": Vollständig für mindestens ein ausgewähltes Gebietsschemata
+            "GREATER OR EQUALS THAN ON ALL LOCALES": Vollständig für alle ausgewählten Gebietsschemata
+            LOWER THAN ON ALL LOCALES: Unvollständig für alle ausgewählten Gebietsschemas
+          empty_selection: Produktfamilie wählen
+        category:
+          title: Kategorie
+          help: Verwenden Sie die Produktkategorien im Strukturbaum (definiert durch den Ausgabekanal oben) um die Produkte für den Export zu selektieren
+        identifier:
+          title: Kennung
+          help: Identifikator der Produkte die Sie exportieren möchten, getrennt durch Kommas, Leerzeichen oder Zeilenumbrüche
+        metric:
+          operators:
+            "=": Ist gleich
+            "!=": Ist nicht gleich
+            ">=": Größer als oder gleich
+            ">": Größer als
+            "<=": Weniger als oder gleich
+            "<": Weniger als
+            EMPTY: Ist leer
+            NOT EMPTY: Ist nicht leer
+        string:
+          operators:
+            ALL: Alle
+            CONTAINS: Enthält
+            DOES NOT CONTAIN: Enthält nicht
+            "=": Ist gleich
+            STARTS WITH: Beginnt mit
+            ENDS WITH: Endet mit
+            EMPTY: Ist leer
+            NOT EMPTY: Ist nicht leer
+        price-collection:
+          operators:
+            "=": Ist gleich
+            "!=": Ist nicht gleich
+            ">=": Größer als oder gleich
+            ">": Größer als
+            "<=": Weniger als oder gleich
+            "<": Weniger als
+            EMPTY: Ist leer
+            NOT EMPTY: Ist nicht leer
+        multi_select:
+          operators:
+            IN: In Liste
+            EMPTY: Ist leer
+            NOT EMPTY: Ist nicht leer
+        media:
+          operators:
+            CONTAINS: Enthält
+            DOES NOT CONTAIN: Enthält nicht
+            "=": Ist gleich
+            STARTS WITH: Beginnt mit
+            ENDS WITH: Endet mit
+            EMPTY: Ist leer
+            NOT EMPTY: Ist nicht leer
+        date:
+          operators:
+            ">": Größer als
+            "<": Früher als
+            "=": Ist gleich
+            "!=": Ist nicht gleich
+            BETWEEN: Zwischen
+            NOT BETWEEN: Nicht zwischen
+            EMPTY: Ist leer
+            NOT EMPTY: Ist nicht leer
+        number:
+          operators:
+            "=": Ist gleich
+            "!=": Ist nicht gleich
+            ">=": Größer als oder gleich
+            ">": Größer als
+            "<=": Weniger als oder gleich
+            "<": Weniger als
+            EMPTY: Ist leer
+            NOT EMPTY: Ist nicht leer
+  mass_edit_action:
+    edit_common_attributes:
+      description: Die ausgewählten Produktattribute werden für die folgenden Daten des Gebietsschemas <span class="bold-purple">{{ locale }}</span> und dem Ausgabekanal <span class="bold-purple">{{ channel }}</span>, welche in der Produktübersicht ausgewählt sind, bearbeitet.
+pim_enrich.error:
+  exception.title: Oh nein! Ein {{ status_code }} Fehler ist aufgetreten...

@@ -1,0 +1,20 @@
+function Locale(field, params)
+{
+    var value = field && field.nodeName ? {{ getJsFormElementValue('field') }} : field;
+
+    if (isNotDefined(value)) {
+        return true;
+    }
+
+    value = String(value);
+
+    var locales = {{ getLocales()|raw }};
+
+    for (key in locales) {
+        if (locales[key] == value) {
+            return true;
+        }
+    }
+
+    return getComputeMessage(params.message);
+}

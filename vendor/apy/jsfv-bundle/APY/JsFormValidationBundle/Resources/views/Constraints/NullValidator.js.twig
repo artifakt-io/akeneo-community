@@ -1,0 +1,10 @@
+function Null(field, params)
+{
+    var value = field && field.nodeName ? {{ getJsFormElementValue('field') }} : field;
+
+    if (typeof(value) == 'undefined' || value === null) {
+        return true;
+    }
+
+    return getComputeMessage(params.message);
+}

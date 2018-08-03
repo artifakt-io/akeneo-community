@@ -1,0 +1,23 @@
+{% extends 'PimUserBundle::layout.html.twig' %}
+
+{% block bodyClass %}login-page{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="title-box">
+        {% embed 'PimUIBundle::logo.html.twig' %}{% endembed %}
+    </div>
+
+    <form action="" class="form-reset">
+        <h2 class="title">{{ 'Check Email'|trans }}</h2>
+
+        <div>
+            <div class="alert alert-success">
+                {{ 'password_reset_email_sent'|trans({ '%email%': email }) }}
+            </div>
+        </div>
+
+        <a href="{{ path('oro_default') }}" class="cancel">{{ 'Go to homepage'|trans }}</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'PimUserBundle::layout.html.twig' %}
+
+{% block head %}
+    {{ parent() }}
+    <script type="text/javascript">
+        if (sessionStorage) {
+            sessionStorage.clear()
+        }
+    </script>
+{% endblock %}
+
+{% block bodyClass %}login-page{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="title-box">
+        {% embed 'PimUIBundle::logo.html.twig' %}{% endembed %}
+    </div>
+
+    {% if error %}
+        <div class="alert alert-error">
+            <button data-dismiss="alert" class="close" type="button">&times;</button>
+            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        </div>
+    {% endif %}
+
+    <form action="{{ path('oro_user_security_check') }}" method="post" class="form-signin form-inline">
+        <fieldset>
+            <div class="form-row">
+                <input type="text" id="prependedInput" autofocus="autofocus" name="_username" value="{{ last_username }}" required="required" placeholder="{{ 'Username or Email'|trans }}" size="1"/>
+                <input type="password" id="prependedInput2" name="_password" required="required" placeholder="{{ 'Password'|trans }}" autocomplete="off" size="1"/>
+                <button type="submit" class="btn btn-large btn-primary" id="_submit" name="_submit">{{ 'Log in'|trans }}</button>
+            </div>
+            <div class="form-row">
+                <label class="checkbox remember-me">
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on" /> {{ 'Remember me on this computer'|trans }}
+                </label>
+                <div class="signin-help">
+                    <a href="{{ path('oro_user_reset_request') }}">{{ 'Forgot your password?'|trans }}</a>
+                </div>
+            </div>
+        </fieldset>
+        <input type="hidden" name="_target_path" value="" />
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+    </form>
+</div>
+
+<script type="text/javascript">
+    require(['oro/layout'], function (layout) {
+        $(function () {
+            layout.hideProgressBar();
+            layout.init();
+            document.title = '{{ 'Login'|trans }}';
+        });
+    });
+</script>
+{% endblock content %}

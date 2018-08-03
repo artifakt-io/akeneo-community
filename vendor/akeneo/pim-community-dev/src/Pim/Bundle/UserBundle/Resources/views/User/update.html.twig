@@ -1,0 +1,114 @@
+{% extends bap.layout %}
+{% import 'OroUIBundle::macros.html.twig' as UI %}
+{% import 'PimUIBundle:Default:page_elements.html.twig' as elements %}
+
+{% set fullname = form.vars.value.fullName|default('N/A') %}
+{% oro_title_set({params : {"%username%": fullname }}) %}
+{% set title = form.vars.value.id ? 'Edit user'|trans ~ ' - ' ~ fullname : 'New user'|trans %}
+{% if editRoute %}
+    {% set formAction = path(editRoute) %}
+{% else %}
+    {% set formAction = form.vars.value.id ? path('oro_user_update', { id: form.vars.value.id}) : path('oro_user_create') %}
+{% endif %}
+
+{% block head_script %}
+    <script type="text/javascript">
+        require(['jquery', 'pim/initselect2', 'datepicker', 'pim/date-context', 'jquery.jstree', 'jstree/jquery.hotkeys'],
+        function ($, initSelect2, datepicker, dateContext) {
+            $(function() {
+                $('.navbar-content.pull-left').css('width', '80%')
+
+                $('#{{ form.vars.id }}').find('select').addClass('select2');
+                initSelect2.init($('#{{ form.vars.id }}'));
+
+                _.each($('#{{ form.vars.id }} input.datepicker:not(.hasPicker)'), function (field) {
+                    datepicker.init($(field).closest('div'), {
+                        format: dateContext.get('date').format,
+                        defaultFormat: dateContext.get('date').defaultFormat,
+                        language: dateContext.get('language'),
+                    });
+                });
+
+                {% if form.rolesCollection is defined %}
+                    var $roles = $('#{{ form.rolesCollection.vars.id }}');
+
+                    var checkRoles = function() {
+                        if ($roles.find('input:checked').length) {
+                            $('a[href="#pim_user-user-tab-group_and_role"]').removeClass('error');
+                            $roles.parent().removeClass('validation-error');
+                        } else {
+                            $('a[href="#pim_user-user-tab-group_and_role"]').addClass('error');
+                            $roles.addClass('error').parent().addClass('validation-error');
+                        }
+                    };
+
+                    $roles.on('change', 'input', checkRoles);
+
+                    checkRoles();
+                {% endif %}
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block page_container %}
+{% block content %}
+    {{ JSFV(form) }}
+    {{ form_start(form, {
+        'action': formAction,
+        'attr': {
+            'data-updated-title': 'confirmation.leave'|trans,
+            'data-updated-message': 'confirmation.discard changes'|trans({ '%entity%': 'user.title'|trans })
+        }
+    }) }}
+
+        {% set titleButtons %}
+            <div class="customer-info">
+                <div class="visual">
+                    <img src="{{ form.vars.value.imagePath ? form.vars.value.imagePath | imagine_filter('avatar_med') : asset('bundles/pimui/img/info-user.png') }}" alt="{{ fullname }}"/>
+                </div>
+                <div class="sub-title">{{ title|first|capitalize ~ title[1:] }}</div>
+                {% if form.vars.value.id %}
+                    <ul class="inline">
+                        <li>{{ 'Created'|trans }}: {{ form.vars.value.createdAt ? form.vars.value.createdAt|datetime_presenter : 'N/A' }}</li>
+                        <li>{{ 'Updated'|trans }}: {{ form.vars.value.updatedAt ? form.vars.value.updatedAt|datetime_presenter : 'N/A' }}</li>
+                        <li>{{ 'Last logged in'|trans }}: {{ form.vars.value.lastLogin ? form.vars.value.lastLogin|datetime_presenter : 'N/A' }}</li>
+                        <li>{{ 'Login count'|trans }}: {{ form.vars.value.loginCount|default(0) }}</li>
+                    </ul>
+                {% endif %}
+            </div>
+        {% endset %}
+
+        {% set buttons %}
+            {% if form.vars.value.id and form.vars.value.id != app.user.id %}
+                {{ elements.deleteLink(
+                    path('oro_user_user_delete', {'id': form.vars.value.id}),
+                    'pim_user_user_remove',
+                    path('oro_user_index'),
+                    'confirmation.remove.user'|trans({ '%name%': fullname }),
+                    'flash.user.removed'|trans
+                ) }}
+            {% endif %}
+            {% if form.vars.value.id %}
+                {{ elements.link(
+                    'Cancel'|trans,
+                    path('oro_user_profile_view', {'id': form.vars.value.id}),
+                    {icon: 'chevron-left'}
+                ) }}
+            {% endif %}
+            {{ elements.submitBtn('', 'ok') }}
+        {% endset %}
+
+        {{ elements.page_header('', buttons, null, null, elements.updated(form.vars.id), titleButtons) }}
+
+        {{ elements.form_navbar(view_element_aliases(form.vars.id ~ '.form_tab')) }}
+
+        <div class="row-fluid tab-content oro-tab-form">
+            {{ elements.form_errors(form) }}
+
+            {{ view_elements(form.vars.id ~ '.form_tab') }}
+        </div>
+    {{ form_end(form) }}
+
+{% endblock %}
+{% endblock %}

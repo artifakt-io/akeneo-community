@@ -1,0 +1,48 @@
+<% if (!associationTypes.length) { %>
+    <div class="buffer-top buffer-left">
+        <span class="buffer-small-right">
+            <%- _.__('pim_enrich.form.product.tab.associations.info.none_exist') %>
+        </span>
+    </div>
+<% } else { %>
+    <div class="tabbable tabs-left">
+        <div class="sidebar">
+            <ul class="associations-list nav nav-tabs tab-groups">
+                <% _.each(associationTypes, function (associationType) { %>
+                    <li data-association-type="<%- associationType.code %>"<% if (associationType.code === currentAssociationType) { %> class="active"<% } %>>
+                        <a href="#"><%- associationType.labels[locale] || '[' + associationType.code + ']' %></a>
+                    </li>
+                <% }); %>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div class="association-buttons navbar-extra pull-right">
+                <button type="button" class="target-button btn pull-right<% if ('products' === currentAssociationTarget) { %> hide<% } %>" data-association-target="products">
+                    <i class="icon-random"></i>
+                    <%- _.__('pim_enrich.form.product.tab.associations.info.show_products') %>
+                </button>
+                <button type="button" class="target-button btn pull-right<% if ('groups' === currentAssociationTarget) { %> hide<% } %>" data-association-target="groups">
+                    <i class="icon-random"></i>
+                    <%- _.__('pim_enrich.form.product.tab.associations.info.show_groups') %>
+                </button>
+            </div>
+
+            <div class="association-product-grid<% if ('products' !== currentAssociationTarget) { %> hide<% } %>">
+                <div id="grid-association-product-grid" data-type="datagrid"></div>
+            </div>
+
+            <div class="association-group-grid<% if ('groups' !== currentAssociationTarget) { %> hide<% } %>">
+                <div id="grid-association-group-grid" data-type="datagrid"></div>
+            </div>
+
+            <div class="selection-inputs">
+                <% _.each(associationTypes, function (associationType) { %>
+                    <input type="hidden" id="<%- associationType.code %>-products-appendfield"/>
+                    <input type="hidden" id="<%- associationType.code %>-products-removefield"/>
+                    <input type="hidden" id="<%- associationType.code %>-groups-appendfield"/>
+                    <input type="hidden" id="<%- associationType.code %>-groups-removefield"/>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+<% } %>

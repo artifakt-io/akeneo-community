@@ -1,0 +1,36 @@
+Pim\Bundle\CatalogBundle\Entity\Group:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: code
+        - Pim\Component\Catalog\Validator\Constraints\UniqueVariantAxis: ~
+        - Pim\Component\Catalog\Validator\Constraints\Immutable:
+            properties:
+                - code
+                - type
+                - attributes
+        - Pim\Component\Catalog\Validator\Constraints\VariantGroupValues: ~
+        - Pim\Component\Catalog\Validator\Constraints\VariantGroupAxis: ~
+    properties:
+        code:
+            - NotBlank: ~
+            - Regex:
+                pattern: /^[a-zA-Z0-9_]+$/
+                message: Group code may contain only letters, numbers and underscores.
+            - Length:
+                max: 100
+        translations:
+            - Valid: ~
+        attributes:
+            - Count:
+                min: 1
+                groups: [variant]
+
+Pim\Bundle\CatalogBundle\Entity\GroupTranslation:
+    properties:
+        label:
+            - Length:
+                max: 100
+
+Pim\Bundle\CatalogBundle\Entity\ProductTemplate:
+    getters:
+        values:
+            - Symfony\Component\Validator\Constraints\Valid: ~

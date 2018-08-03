@@ -1,0 +1,3 @@
+parameters:
+    # replaces Doctrine\Common\Cache\ApcCache
+    doctrine.orm.cache.apc.class: Pim\Bundle\CatalogBundle\Doctrine\ArrayApcCache

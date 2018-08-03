@@ -1,0 +1,5 @@
+function Callback(field, params)
+{
+    var value = field && field.nodeName ? {{ getJsFormElementValue('field') }} : field;
+    return true;
+}
